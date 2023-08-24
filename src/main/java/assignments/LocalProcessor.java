@@ -2,6 +2,7 @@ package assignments;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -39,7 +40,7 @@ public class LocalProcessor {
     public void listIterator(List<String> stringList) {
         LinkedList<String> stringArrayList = new LinkedList<>(stringList);
         for (int i = 0; i < period; i++) {
-                System.out.println(stringArrayList.get(i).hashCode());
+            System.out.println(stringArrayList.get(i).hashCode());
         }
     }
 
@@ -52,13 +53,31 @@ public class LocalProcessor {
         return processorName.toString();
     }
 
+    //    public void readFullProcessorName(File file) throws FileNotFoundException {
+//        try {
+//            informationScanner = new Scanner(file);
+//            while (informationScanner.hasNext()) {
+//                processorVersion += informationScanner.nextLine();
+//            }
+//        } catch (IOException e) {
+//            throw new FileNotFoundException();
+//        }
+//
+//
+//    }
     @ReadFullProcessorNameAnnotation
     public void readFullProcessorName(File file) throws FileNotFoundException {
-        informationScanner = new Scanner(file);
-        StringBuilder versionBuilder = new StringBuilder(processorVersion);
-        while (informationScanner.hasNextLine()) {
-            versionBuilder.append(informationScanner.nextLine());
+        try {
+            informationScanner = new Scanner(file);
+            StringBuilder versionBuilder = new StringBuilder(processorVersion);
+
+            while (informationScanner.hasNextLine()) {
+                versionBuilder.append(informationScanner.nextLine());
+            }
+
+            processorVersion = versionBuilder.toString();
+        } catch (IOException e) {
+            throw new FileNotFoundException();
         }
-        processorVersion = versionBuilder.toString();
     }
 }
