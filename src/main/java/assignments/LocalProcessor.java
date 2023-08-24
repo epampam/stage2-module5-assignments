@@ -16,28 +16,28 @@ import lombok.Setter;
 @Getter
 @Setter
 public class LocalProcessor {
-    private StringBuilder processorName;
+    private final StringBuilder processorName = new StringBuilder();
     private Long period = 10_000_000_000_000L;
     protected String processorVersion;
     private Integer valueOfCheap;
     private Scanner informationScanner;
-    private List<String> stringLinkedList = new LinkedList<>();
+    private List<String> stringList = new LinkedList<>();
 
     public LocalProcessor(String processorName, Long period, String processorVersion, Integer valueOfCheap,
-                          Scanner informationScanner, LinkedList<String> stringArrayList) {
+                          Scanner informationScanner, List<String> stringList) {
         this.processorName.append(processorName);
         this.period = period;
         this.processorVersion = processorVersion;
         this.valueOfCheap = valueOfCheap;
         this.informationScanner = informationScanner;
-        this.stringLinkedList = stringLinkedList;
+        this.stringList.addAll(stringList);
     }
 
     public LocalProcessor() {
     }
 
     @ListIteratorAnnotation
-    public void listIterator(List<String> stringList) {
+    public void listIterator() {
         LinkedList<String> stringArrayList = new LinkedList<>(stringList);
         for (int i = 0; i < period; i++) {
             System.out.println(stringArrayList.get(i).hashCode());
@@ -45,7 +45,7 @@ public class LocalProcessor {
     }
 
     @FullNameProcessorGeneratorAnnotation
-    public String fullNameProcessorGenerator(List<String> stringList) {
+    public String fullNameProcessorGenerator() {
         LinkedList stringLinkedList = new LinkedList<String>(stringList);
         for (int i = 0; i < stringLinkedList.size(); i++) {
             processorName.append(stringList.get(i)).append(' ');
@@ -63,21 +63,5 @@ public class LocalProcessor {
         } catch (IOException e) {
             throw new FileNotFoundException();
         }
-
-
     }
-//    public void readFullProcessorName(File file) throws FileNotFoundException {
-//        try {
-//            informationScanner = new Scanner(file);
-//            StringBuilder versionBuilder = new StringBuilder(processorVersion);
-//
-//            while (informationScanner.hasNextLine()) {
-//                versionBuilder.append(informationScanner.nextLine());
-//            }
-//
-//            processorVersion = versionBuilder.toString();
-//        } catch (IOException e) {
-//            throw new FileNotFoundException();
-//        }
-//    }
 }
