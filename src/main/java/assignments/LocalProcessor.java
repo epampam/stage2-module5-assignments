@@ -53,31 +53,31 @@ public class LocalProcessor {
         return processorName.toString();
     }
 
-    //    public void readFullProcessorName(File file) throws FileNotFoundException {
-//        try {
-//            informationScanner = new Scanner(file);
-//            while (informationScanner.hasNext()) {
-//                processorVersion += informationScanner.nextLine();
-//            }
-//        } catch (IOException e) {
-//            throw new FileNotFoundException();
-//        }
-//
-//
-//    }
     @ReadFullProcessorNameAnnotation
     public void readFullProcessorName(File file) throws FileNotFoundException {
         try {
             informationScanner = new Scanner(file);
-            StringBuilder versionBuilder = new StringBuilder(processorVersion);
-
-            while (informationScanner.hasNextLine()) {
-                versionBuilder.append(informationScanner.nextLine());
+            while (informationScanner.hasNext()) {
+                processorVersion += informationScanner.nextLine();
             }
-
-            processorVersion = versionBuilder.toString();
         } catch (IOException e) {
             throw new FileNotFoundException();
         }
+
+
     }
+//    public void readFullProcessorName(File file) throws FileNotFoundException {
+//        try {
+//            informationScanner = new Scanner(file);
+//            StringBuilder versionBuilder = new StringBuilder(processorVersion);
+//
+//            while (informationScanner.hasNextLine()) {
+//                versionBuilder.append(informationScanner.nextLine());
+//            }
+//
+//            processorVersion = versionBuilder.toString();
+//        } catch (IOException e) {
+//            throw new FileNotFoundException();
+//        }
+//    }
 }
